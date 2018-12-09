@@ -251,5 +251,13 @@ describe Sequel::Generators::MigrationGenerator do
         }
       end
     end
+
+    context 'when invalid migration name' do
+      it 'raises error' do
+        expect { run_generator ['invalid:file:name'] }
+          .to raise_error(Sequel::IllegalMigrationNameError)
+          .with_message("Illegal name for migration file: invalid:file:name (only lower case letters, numbers, and '_' allowed)")
+      end
+    end
   end
 end
