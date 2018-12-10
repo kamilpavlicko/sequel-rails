@@ -61,7 +61,7 @@ module Sequel
       end
 
       def validate_file_name!
-        raise IllegalMigrationNameError file_name unless file_name =~ /^[_a-z0-9]+$/
+        raise IllegalMigrationNameError.new(file_name) unless file_name =~ /^[_a-z0-9]+$/
       end
     end
   end
