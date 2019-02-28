@@ -204,6 +204,44 @@ describe SequelRails::Configuration do
         end
       end
 
+      shared_examples 'servers' do
+        context 'servers' do
+          let(:servers) { { read_only: { host: 'replica' } } }
+
+          shared_examples 'passes the value only through options hash' do
+            it 'passes the value only through options hash' do
+              expect(::Sequel).to receive(:connect) do |hash_or_url, *_|
+                if hash_or_url.is_a? Hash
+                  servers.keys.each do |k|
+                    expect(hash_or_url[:servers][k]).to eq servers[k]
+                  end
+                else
+                  puts hash_or_url
+                  expect(hash_or_url).not_to include('servers=')
+                end
+              end
+              subject.connect environment
+            end
+          end
+
+          context 'with servers set in config' do
+            before do
+              subject.servers = servers
+            end
+
+            include_examples 'passes the value only through options hash'
+          end
+
+          context 'with servers set in environment' do
+            before do
+              environments[environment]['servers'] = servers
+            end
+
+            include_examples 'passes the value only through options hash'
+          end
+        end
+      end
+
       shared_examples 'with DATABASE_URL in ENV' do
         let(:database_url) { 'adapter://user:pass@host/db' }
         def with_database_url_env
@@ -283,6 +321,7 @@ describe SequelRails::Configuration do
           include_examples 'test_connect'
           include_examples 'max_connections'
           include_examples 'search_path'
+          include_examples 'servers'
           include_examples 'with DATABASE_URL in ENV'
 
           let(:is_jruby) { false }
@@ -299,6 +338,7 @@ describe SequelRails::Configuration do
           include_examples 'test_connect'
           include_examples 'max_connections'
           include_examples 'search_path'
+          include_examples 'servers'
           include_examples 'with DATABASE_URL in ENV'
 
           let(:is_jruby) { true }
@@ -332,6 +372,7 @@ describe SequelRails::Configuration do
         context 'in C-Ruby' do
           include_examples 'test_connect'
           include_examples 'max_connections'
+          include_examples 'servers'
           include_examples 'with DATABASE_URL in ENV'
 
           let(:is_jruby) { false }
@@ -347,6 +388,7 @@ describe SequelRails::Configuration do
         context 'in JRuby' do
           include_examples 'test_connect'
           include_examples 'max_connections'
+          include_examples 'servers'
           include_examples 'with DATABASE_URL in ENV'
 
           let(:is_jruby) { true }
