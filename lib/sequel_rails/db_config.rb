@@ -73,8 +73,8 @@ module SequelRails
         return URI::Generic.build(:scheme => adapter, :opaque => database)
       end
 
-      # these four are handled separately
-      params = cfg.reject { |k, _| %w(adapter host port database).include? k }
+      # these are handled separately
+      params = cfg.reject { |k, _| non_params.include? k }
 
       if (v = params['search_path'])
         # make sure there's no whitespace
@@ -95,6 +95,10 @@ module SequelRails
         :path => path,
         :query => q
       )
+    end
+
+    def non_params
+      %w(adapter host port database servers)
     end
   end
 end
