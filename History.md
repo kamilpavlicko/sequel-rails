@@ -1,3 +1,10 @@
+master (unreleased)
+===================
+
+* Allow 'servers' to propagate to Sequel connection (Dustin Byrne)
+  [#169](https://github.com/TalentBox/sequel-rails/pull/169)
+
+
 1.0.1 (2018-02-27)
 ==================
 
