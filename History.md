@@ -1,9 +1,10 @@
 master (unreleased)
 ===================
 
+* Add db:sessions:clear and db:sessions:trim rake tasks (Michael Coyne)
+  [#170](https://github.com/TalentBox/sequel-rails/pull/170)
 * Allow 'servers' to propagate to Sequel connection (Dustin Byrne)
   [#169](https://github.com/TalentBox/sequel-rails/pull/169)
-
 
 1.0.1 (2018-02-27)
 ==================

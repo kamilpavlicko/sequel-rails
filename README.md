@@ -337,6 +337,8 @@ rake db:schema:load                   # Load a schema.rb file into the database
 rake db:seed                          # Load the seed data from db/seeds.rb
 rake db:setup                         # Create the database, load the schema, and initialize with the seed data
 rake db:test:prepare                  # Prepare test database (ensure all migrations ran, drop and re-create database then load schema). This task can be run in the same invocation as other task (eg: rake db:migrate db:test:prepare).
+rake db:sessions:clear                # Delete all sessions from the database
+rake db:sessions:trim[threshold]      # Delete all sessions older than `threshold` days (default to 30 days, eg: rake db:session:trim[10])
 ```
 
 Note on Patches/Pull Requests
@@ -408,6 +410,7 @@ Improvements have been made by those awesome contributors:
 * Rolf Timmermans (@rolftimmermans)
 * Olivier Lacan (@olivierlacan)
 * Dustin Byrne (@dsbyrne)
+* Michael Coyne (@mjc-gh)
 
 Credits
 =======

@@ -5,7 +5,8 @@ rvm:
   - 2.2.9
   - 2.3.6
   - 2.4.3
-  - 2.5.0
+  - 2.5.3
+  - 2.6.1
   - jruby-9.1.16.0
 before_script:
   - mysql -e 'create database sequel_rails_test;'
