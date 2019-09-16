@@ -1,6 +1,8 @@
 master (unreleased)
 ===================
 
+* Silence logger for sessions store (Michael Coyne)
+  [#171](https://github.com/TalentBox/sequel-rails/pull/171)
 * Add db:sessions:clear and db:sessions:trim rake tasks (Michael Coyne)
   [#170](https://github.com/TalentBox/sequel-rails/pull/170)
 * Allow 'servers' to propagate to Sequel connection (Dustin Byrne)
