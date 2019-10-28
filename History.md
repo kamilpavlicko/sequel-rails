@@ -1,6 +1,8 @@
 master (unreleased)
 ===================
 
+* Add test_connect option (p-leger)
+  [#165](https://github.com/TalentBox/sequel-rails/pull/165)
 * Silence logger for sessions store (Michael Coyne)
   [#171](https://github.com/TalentBox/sequel-rails/pull/171)
 * Add db:sessions:clear and db:sessions:trim rake tasks (Michael Coyne)
