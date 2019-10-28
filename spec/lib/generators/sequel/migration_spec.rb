@@ -21,7 +21,7 @@ describe Sequel::Generators::MigrationGenerator do
   it 'refuses to generate migration with invalid filename' do
     expect do
       run_generator ['add_something:datetime']
-    end.to raise_error
+    end.to raise_error(Sequel::IllegalMigrationNameError)
   end
 
   context 'when name starts with create' do

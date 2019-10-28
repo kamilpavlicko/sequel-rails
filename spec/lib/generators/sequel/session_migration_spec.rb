@@ -11,7 +11,7 @@ describe Sequel::Generators::SessionMigrationGenerator do
   it 'refuses to generate migration with invalid filename' do
     expect do
       run_generator ['add:sessions']
-    end.to raise_error
+    end.to raise_error(Sequel::IllegalMigrationNameError)
   end
 
   it 'creates a new migration for sessions table' do

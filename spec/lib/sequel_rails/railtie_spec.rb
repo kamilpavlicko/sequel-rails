@@ -123,7 +123,7 @@ describe SequelRails::Railtie do
       it 'initializing the application fails' do
         expect do
           configure_sequel!
-        end.to raise_error
+        end.to raise_error RuntimeError, "Database not configured.\nPlease create config/database.yml or set DATABASE_URL in environment."
       end
     end
   end
