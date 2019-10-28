@@ -46,6 +46,10 @@ matrix:
       gemfile: ci/rails-5.0.gemfile
     - rvm: 2.6.5
       gemfile: ci/rails-5.1.gemfile
+    - rvm: jruby-9.2.8.0
+      gemfile: ci/rails-4.0.gemfile
+    - rvm: jruby-9.2.8.0
+      gemfile: ci/rails-4.1.gemfile
 notifications:
   email:
     - jonathan.tron@metrilio.com
