@@ -28,23 +28,23 @@ gemfile:
   - ci/rails-5.2.gemfile
 matrix:
   exclude:
-    - rvm: 2.4.3
+    - rvm: 2.4.9
       gemfile: ci/rails-4.0.gemfile
-    - rvm: 2.4.3
+    - rvm: 2.4.9
       gemfile: ci/rails-4.1.gemfile
-    - rvm: 2.5.3
+    - rvm: 2.5.7
       gemfile: ci/rails-4.0.gemfile
-    - rvm: 2.5.3
+    - rvm: 2.5.7
       gemfile: ci/rails-4.1.gemfile
-    - rvm: 2.6.1
+    - rvm: 2.6.5
       gemfile: ci/rails-4.0.gemfile
-    - rvm: 2.6.1
+    - rvm: 2.6.5
       gemfile: ci/rails-4.1.gemfile
-    - rvm: 2.6.1
+    - rvm: 2.6.5
       gemfile: ci/rails-4.2.gemfile
-    - rvm: 2.6.1
+    - rvm: 2.6.5
       gemfile: ci/rails-5.0.gemfile
-    - rvm: 2.6.1
+    - rvm: 2.6.5
       gemfile: ci/rails-5.1.gemfile
 notifications:
   email:
