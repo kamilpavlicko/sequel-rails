@@ -26,6 +26,7 @@ gemfile:
   - ci/rails-5.0.gemfile
   - ci/rails-5.1.gemfile
   - ci/rails-5.2.gemfile
+  - ci/rails-6.0.gemfile
 matrix:
   exclude:
     - rvm: 2.4.9
@@ -50,6 +51,13 @@ matrix:
       gemfile: ci/rails-4.0.gemfile
     - rvm: jruby-9.2.8.0
       gemfile: ci/rails-4.1.gemfile
+    - rvm: 2.2.9
+      gemfile: ci/rails-6.0.gemfile
+    - rvm: 2.3.8
+      gemfile: ci/rails-6.0.gemfile
+    - rvm: 2.4.9
+      gemfile: ci/rails-6.0.gemfile
+
 notifications:
   email:
     - jonathan.tron@metrilio.com
