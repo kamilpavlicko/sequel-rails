@@ -1,5 +1,5 @@
-master (unreleased)
-===================
+1.1.0 (2019-10-29)
+==================
 
 * Add test_connect option (p-leger)
   [#165](https://github.com/TalentBox/sequel-rails/pull/165)
