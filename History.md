@@ -1,3 +1,9 @@
+master (unreleased)
+===================
+
+* Add allow_missing_migration_files option (Semyon Pupkov)
+  [#172](https://github.com/TalentBox/sequel-rails/pull/172)
+
 1.1.0 (2019-10-29)
 ==================
 
