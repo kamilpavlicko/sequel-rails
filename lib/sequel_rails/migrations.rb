@@ -6,6 +6,7 @@ module SequelRails
       def migrate(version = nil)
         opts = {}
         opts[:target] = version.to_i if version
+        opts[:allow_missing_migration_files] = !!SequelRails.configuration.allow_missing_migration_files
 
         if migrations_dir.directory?
           ::Sequel::Migrator.run(::Sequel::Model.db, migrations_dir, opts)
@@ -43,8 +44,8 @@ module SequelRails
       def current_migration
         return unless available_migrations?
 
-        migrator_class = ::Sequel::Migrator.send(:migrator_class, migrations_dir)
-        migrator = migrator_class.new ::Sequel::Model.db, migrations_dir
+        migrator = init_migrator
+
         if migrator.respond_to?(:applied_migrations)
           migrator.applied_migrations.last
         elsif migrator.respond_to?(:current_version)
@@ -55,8 +56,8 @@ module SequelRails
       def previous_migration
         return unless available_migrations?
 
-        migrator_class = ::Sequel::Migrator.send(:migrator_class, migrations_dir)
-        migrator = migrator_class.new ::Sequel::Model.db, migrations_dir
+        migrator = init_migrator
+
         if migrator.respond_to?(:applied_migrations)
           migrator.applied_migrations[-2] || '0'
         elsif migrator.respond_to?(:current_version)
@@ -66,6 +67,16 @@ module SequelRails
 
       def available_migrations?
         File.exist?(migrations_dir) && Dir[File.join(migrations_dir, '*')].any?
+      end
+
+      def init_migrator
+        migrator_class = ::Sequel::Migrator.send(:migrator_class, migrations_dir)
+
+        migrator_class.new(
+          ::Sequel::Model.db,
+          migrations_dir,
+          allow_missing_migration_files: !!SequelRails.configuration.allow_missing_migration_files
+        )
       end
     end
   end

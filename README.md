@@ -166,6 +166,9 @@ You can configure some options with the usual rails mechanism, in
     # Allowed options: :sql, :ruby.
     config.sequel.schema_format = :sql
 
+    # Allowed options: true, false, default false
+    config.sequel.allow_missing_migration_files = true
+
     # Whether to dump the schema after successful migrations.
     # Defaults to false in production and test, true otherwise.
     config.sequel.schema_dump = true

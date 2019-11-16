@@ -8,21 +8,38 @@ describe SequelRails::Migrations do
     describe ".#{migration_method}" do
       let(:result) { double(:result) }
       context 'with no version specified' do
-        let(:opts) { {} }
         it 'runs migrations using Sequel::Migrator' do
           expect(::Sequel::Migrator).to receive(:run).with(
-            db, Rails.root.join('db/migrate'), opts
+            db, Rails.root.join('db/migrate'), allow_missing_migration_files: false
           ).and_return result
           expect(described_class.send(migration_method)).to be(result)
         end
       end
       context 'with version specified' do
-        let(:opts) { { :target => 1 } }
         it 'runs migrations using Sequel::Migrator' do
           expect(::Sequel::Migrator).to receive(:run).with(
-            db, Rails.root.join('db/migrate'), opts
+            db, Rails.root.join('db/migrate'), allow_missing_migration_files: false, target: 1
           ).and_return result
           expect(described_class.send(migration_method, 1)).to be(result)
+        end
+      end
+
+      context 'with allow_missing_migration_files' do
+        around do |ex|
+          option = SequelRails.configuration.allow_missing_migration_files
+          SequelRails.configuration.allow_missing_migration_files = true
+
+          ex.run
+
+          SequelRails.configuration.allow_missing_migration_files = option
+        end
+
+        it 'runs migrations using Sequel::Migrator' do
+          expect(::Sequel::Migrator).to receive(:run).with(
+            db, Rails.root.join('db/migrate'), allow_missing_migration_files: true
+          ).and_return result
+
+          described_class.send(migration_method)
         end
       end
     end
