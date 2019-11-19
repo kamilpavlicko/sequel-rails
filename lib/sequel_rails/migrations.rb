@@ -30,8 +30,7 @@ module SequelRails
         res = ''
 
         if available_migrations?
-          migrator_class = ::Sequel::Migrator.send(:migrator_class, migrations_dir)
-          migrator = migrator_class.new db, migrations_dir
+          migrator = init_migrator
           res << adapter.schema_information_dump(migrator, sql)
         end
         res
