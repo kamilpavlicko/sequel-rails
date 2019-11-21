@@ -1,6 +1,8 @@
 master (unreleased)
 ===================
 
+* Add frozen_string_literal to migration template (Semyon Pupkov)
+  [#174](https://github.com/TalentBox/sequel-rails/pull/174)
 * Add allow_missing_migration_files option (Semyon Pupkov)
   [#172](https://github.com/TalentBox/sequel-rails/pull/172)
   [#173](https://github.com/TalentBox/sequel-rails/pull/173)
