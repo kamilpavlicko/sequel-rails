@@ -253,11 +253,11 @@ Here's some examples:
 
   For in memory testing:
 
-    ```yaml
-    development:
+```yaml
+     development:
       adapter: sqlite # Also accept sqlite3
       database: ":memory:"
-    ```
+```
 
 Enabling plugins
 ================
