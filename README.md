@@ -416,6 +416,7 @@ Improvements have been made by those awesome contributors:
 * Michael Coyne (@mjc-gh)
 * p-leger (@p-leger)
 * Semyon Pupkov (@artofhuman)
+* Ben Koshy (@BKSpurgeon)
 
 Credits
 =======
