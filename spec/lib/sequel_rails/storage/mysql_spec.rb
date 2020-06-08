@@ -46,7 +46,7 @@ describe SequelRails::Storage::Mysql, :mysql do
     let(:dump_file_name) { 'dump.sql' }
     it 'uses the mysqldump command' do
       expect(subject).to receive(:`).with(
-        "mysqldump --user\\=#{username} --password\\=#{password} --host\\=#{host} --port\\=#{port} --no-data --result-file\\=#{dump_file_name} #{database}"
+        "mysqldump --user\\=#{username} --password\\=#{password} --host\\=#{host} --port\\=#{port} --no-data --skip-dump-date --result-file\\=#{dump_file_name} #{database}"
       )
       subject._dump dump_file_name
     end

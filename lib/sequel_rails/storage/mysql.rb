@@ -13,6 +13,7 @@ module SequelRails
         commands = ['mysqldump']
         add_connection_settings commands
         add_flag commands, '--no-data'
+        add_flag commands, '--skip-dump-date'
         add_option commands, '--result-file', filename
         commands << database
         safe_exec commands
