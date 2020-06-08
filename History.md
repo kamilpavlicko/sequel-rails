@@ -1,6 +1,8 @@
-master (unreleased)
-===================
+1.1.1 (2020-06-08)
+==================
 
+* When using SQL schema dump in MySQL, don't output the generation date in order
+  to have the same output if nothing changed. (Joseph Halter)
 * Fix readme formatting (Ben Koshy)
   [#175](https://github.com/TalentBox/sequel-rails/pull/175)
 * Add frozen_string_literal to migration template (Semyon Pupkov)
