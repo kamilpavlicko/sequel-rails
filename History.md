@@ -1,3 +1,9 @@
+dev
+===
+
+* Simplify Spring integration (Janko Marohnić)
+  [#180](https://github.com/TalentBox/sequel-rails/pull/180)
+
 1.1.1 (2020-06-08)
 ==================
 

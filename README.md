@@ -417,6 +417,7 @@ Improvements have been made by those awesome contributors:
 * p-leger (@p-leger)
 * Semyon Pupkov (@artofhuman)
 * Ben Koshy (@BKSpurgeon)
+* Janko Marohnić (@janko)
 
 Credits
 =======
