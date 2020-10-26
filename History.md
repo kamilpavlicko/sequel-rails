@@ -1,6 +1,8 @@
 dev
 ===
 
+* Fix for simplified Spring integration (Janko Marohnić, Adrián Mugnolo)
+  [#181](https://github.com/TalentBox/sequel-rails/pull/181)
 * Simplify Spring integration (Janko Marohnić)
   [#180](https://github.com/TalentBox/sequel-rails/pull/180)
 
