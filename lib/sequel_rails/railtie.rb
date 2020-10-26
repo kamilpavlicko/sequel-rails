@@ -19,8 +19,6 @@ require 'sequel_rails/railties/controller_runtime'
 require 'sequel_rails/sequel/database/active_support_notification'
 require 'action_dispatch/middleware/session/sequel_store'
 
-Spring.after_fork { Sequel::DATABASES.each(&:disconnect) } if defined?(Spring)
-
 module SequelRails
   class Railtie < Rails::Railtie
     ::SequelRails::Railties::LogSubscriber.attach_to :sequel
@@ -77,13 +75,7 @@ module SequelRails
     end
 
     initializer 'sequel.spring' do |_app|
-      if defined?(::Spring::Application)
-        class ::Spring::Application # rubocop:disable Style/ClassAndModuleChildren
-          include ::SequelRails::SpringSupport
-          alias_method :disconnect_database_without_sequel, :disconnect_database
-          alias_method :disconnect_database, :disconnect_database_with_sequel
-        end
-      end
+      Spring.after_fork { Sequel::DATABASES.each(&:disconnect) } if defined?(Spring)
     end
 
     # Support overwriting crucial steps in subclasses
