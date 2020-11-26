@@ -6,48 +6,53 @@ on:
   pull_request:
     branches: ['**']
 
-env:
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: postgres
-
 jobs:
   tests:
     services:
       postgres:
         image: postgres:13
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        ports: ['5432:5432']
+          POSTGRES_USER: sequel_rails
+          POSTGRES_PASSWORD: sequel_rails
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
       mysql:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
         ports: ['3306:3306']
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
 
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         ruby:
-          - 2.2
-          - 2.3
-          - 2.4
-          - 2.5
+          # - 2.2
+          # - 2.3
+          # - 2.4
+          # - 2.5
           - 2.6
-          - 2.7
-          - jruby
+          # - 2.7
+          # - jruby
         sequel:
-          - 4.0
+          # - 4.0
           - 5.0
         rails:
-          - 4.0
-          - 4.1
-          - 4.2
-          - 5.0
-          - 5.1
-          - 5.2
+          # - 4.0
+          # - 4.1
+          # - 4.2
+          # - 5.0
+          # - 5.1
+          # - 5.2
           - 6.0
         exclude:
           - ruby: 2.4
@@ -84,11 +89,11 @@ jobs:
     steps:
       - name: Create databases
         run: |
-          mysql -e 'create database sequel_rails_test;'
-          mysql -e 'create database sequel_rails_test_mysql2;'
-          mysql -e 'create database sequel_rails_test_storage_dev;'
-          psql  -c 'create database sequel_rails_test_storage_dev;' -U postgres
-          psql  -c 'create database sequel_rails_test;' -U postgres
+          mysql -e 'create database sequel_rails_test;' -h mysql
+          mysql -e 'create database sequel_rails_test_mysql2;' -h mysql
+          mysql -e 'create database sequel_rails_test_storage_dev;' -h mysql
+          psql  -c 'create database sequel_rails_test_storage_dev;' -U postgres -h postgres
+          psql  -c 'create database sequel_rails_test;' -U postgres -h postgres
       - uses: actions/checkout@v2
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -105,5 +110,37 @@ jobs:
           bundle config path vendor/bundle
           bundle config set gemfile "${GITHUB_WORKSPACE}/ci/rails-${{ matrix.rails }}.gemfile"
           bundle install --jobs 4 --retry 3
-      - name: Run tests
-        run: bundle exec rake
+      - name: Run PostgreSQL tests
+        run: bundle exec rake spec
+        env:
+          TEST_ADAPTER: postgresql
+          TEST_DATABASE: sequel_rails
+          TEST_DATABASE_HOST: postgres
+          TEST_OWNER: sequel_rails
+          TEST_USERNAME: sequel_rails
+          TEST_PASSWORD: sequel_rails
+      - name: Run MySQL tests
+        run: bundle exec rake spec
+        if: matrix.ruby < '2.4'
+        env:
+          TEST_ADAPTER: mysql
+          TEST_DATABASE: sequel_rails_test
+          TEST_DATABASE_HOST: mysql
+          TEST_USERNAME: root
+          TEST_ENCODING: "utf8"
+      - name: Run MySQL2 tests
+        run: bundle exec rake spec
+        if: matrix.ruby != 'jruby'
+        env:
+          TEST_ADAPTER: mysql2
+          TEST_DATABASE: sequel_rails_test_mysql2
+          TEST_DATABASE_HOST: mysql
+          TEST_USERNAME: root
+          TEST_ENCODING: "utf8"
+      - name: Run SQLite tests
+        run: bundle exec rake spec
+        env:
+          TEST_ADAPTER: "sqlite3"
+          TEST_DATABASE: "spec/internal/db/database.sqlite3"
+      - name: Lint
+        run: bundle exec rubocop
