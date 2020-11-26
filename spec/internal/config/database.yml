@@ -12,3 +12,18 @@ test:
   <% elsif ENV['TEST_ADAPTER'] =~ /postgres/ %>
   encoding: "<%= ENV["TEST_ENCODING"] || "unicode" %>"
   <% end %>
+
+development:
+  adapter: "<%= ENV["TEST_ADAPTER"] || "postgresql" %>"
+  database: "sequel_rails_dev"
+  host: "<%= ENV["TEST_DATABASE_HOST"] %>"
+  <% if ENV['TEST_ADAPTER'] != 'sqlite3' %>
+  owner: "<%= ENV["TEST_OWNER"] || ENV["USER"] %>"
+  user: "<%= ENV["TEST_USERNAME"] || ENV["USER"] %>"
+  password: "<%= ENV["TEST_PASSWORD"] %>"
+  <% end %>
+  <% if ENV['TEST_ADAPTER'] =~ /mysql/ %>
+  encoding: "<%= ENV["TEST_ENCODING"] || "utf8" %>"
+  <% elsif ENV['TEST_ADAPTER'] =~ /postgres/ %>
+  encoding: "<%= ENV["TEST_ENCODING"] || "unicode" %>"
+  <% end %>
