@@ -88,6 +88,8 @@ jobs:
             rails: "6.0"
     name: Rails ${{ matrix.rails }}, Sequel ${{ matrix.sequel }}, Ruby ${{ matrix.ruby }}
     steps:
+      - name: Export Sequel version
+        run: export SEQUEL=${{ matrix.sequel }}
       - name: Create databases
         run: |
           mysql -e 'create database sequel_rails_test;' -u root -h 127.0.0.1
