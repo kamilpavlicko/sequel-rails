@@ -89,11 +89,11 @@ jobs:
     steps:
       - name: Create databases
         run: |
-          mysql -e 'create database sequel_rails_test;' -h localhost
-          mysql -e 'create database sequel_rails_test_mysql2;' -h localhost
-          mysql -e 'create database sequel_rails_test_storage_dev;' -h localhost
-          env PGPASSWORD=sequel_rails psql  -c 'create database sequel_rails_test_storage_dev;' -U sequel_rails -h localhost
-          env PGPASSWORD=sequel_rails psql  -c 'create database sequel_rails_test;' -U sequel_rails -h localhost
+          mysql -e 'create database sequel_rails_test;' -h 127.0.0.1
+          mysql -e 'create database sequel_rails_test_mysql2;' -h 127.0.0.1
+          mysql -e 'create database sequel_rails_test_storage_dev;' -h 127.0.0.1
+          env PGPASSWORD=sequel_rails psql  -c 'create database sequel_rails_test_storage_dev;' -U sequel_rails -h 127.0.0.1
+          env PGPASSWORD=sequel_rails psql  -c 'create database sequel_rails_test;' -U sequel_rails -h 127.0.0.1
       - uses: actions/checkout@v2
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
