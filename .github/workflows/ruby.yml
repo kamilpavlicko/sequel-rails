@@ -12,8 +12,8 @@ jobs:
       postgres:
         image: postgres:13
         env:
-          POSTGRES_USER: sequel_rails
-          POSTGRES_PASSWORD: sequel_rails
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -92,8 +92,8 @@ jobs:
           mysql -e 'create database sequel_rails_test;' -u root -h 127.0.0.1
           mysql -e 'create database sequel_rails_test_mysql2;' -u root -h 127.0.0.1
           mysql -e 'create database sequel_rails_test_storage_dev;' -u root -h 127.0.0.1
-          env PGPASSWORD=sequel_rails psql  -c 'create database sequel_rails_test_storage_dev;' -U sequel_rails -h 127.0.0.1
-          env PGPASSWORD=sequel_rails psql  -c 'create database sequel_rails_test;' -U sequel_rails -h 127.0.0.1
+          env PGPASSWORD=sequel_rails psql -c 'create database sequel_rails_test_storage_dev;' -U postgres -h postgres
+          env PGPASSWORD=sequel_rails psql -c 'create database sequel_rails_test;' -U postgres -h postgres
       - uses: actions/checkout@v2
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -114,18 +114,18 @@ jobs:
         run: bundle exec rake spec
         env:
           TEST_ADAPTER: postgresql
-          TEST_DATABASE: sequel_rails
+          TEST_DATABASE: sequel_rails_test
           TEST_DATABASE_HOST: postgres
-          TEST_OWNER: sequel_rails
-          TEST_USERNAME: sequel_rails
-          TEST_PASSWORD: sequel_rails
+          TEST_OWNER: postgres
+          TEST_USERNAME: postgres
+          TEST_PASSWORD: postgres
       - name: Run MySQL tests
         run: bundle exec rake spec
         if: matrix.ruby < '2.4'
         env:
           TEST_ADAPTER: mysql
           TEST_DATABASE: sequel_rails_test
-          TEST_DATABASE_HOST: mysql
+          TEST_DATABASE_HOST: 127.0.0.1
           TEST_USERNAME: root
           TEST_ENCODING: "utf8"
       - name: Run MySQL2 tests
@@ -134,7 +134,7 @@ jobs:
         env:
           TEST_ADAPTER: mysql2
           TEST_DATABASE: sequel_rails_test_mysql2
-          TEST_DATABASE_HOST: mysql
+          TEST_DATABASE_HOST: 127.0.0.1
           TEST_USERNAME: root
           TEST_ENCODING: "utf8"
       - name: Run SQLite tests
