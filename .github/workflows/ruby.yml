@@ -93,11 +93,9 @@ jobs:
     steps:
       - name: Create databases
         run: |
-          mysql -e 'create database sequel_rails_dev;' -u root -h 127.0.0.1
           mysql -e 'create database sequel_rails_test;' -u root -h 127.0.0.1
           mysql -e 'create database sequel_rails_test_mysql2;' -u root -h 127.0.0.1
           mysql -e 'create database sequel_rails_test_storage_dev;' -u root -h 127.0.0.1
-          env PGPASSWORD=postgres psql -c 'create database sequel_rails_dev;' -U postgres -h localhost
           env PGPASSWORD=postgres psql -c 'create database sequel_rails_test;' -U postgres -h localhost
           env PGPASSWORD=postgres psql -c 'create database sequel_rails_test_storage_dev;' -U postgres -h localhost
       - uses: actions/checkout@v2

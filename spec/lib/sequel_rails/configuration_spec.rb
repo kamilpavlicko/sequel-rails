@@ -120,6 +120,7 @@ describe SequelRails::Configuration do
           'owner' => (ENV['TEST_OWNER'] || ENV['USER']),
           'username' => (ENV['TEST_OWNER'] || ENV['USER']),
           'database' => 'sequel_rails_test_storage_dev',
+          'password' => ENV['TEST_PASSWORD'],
           'host' => '127.0.0.1',
         },
         'test' => {
@@ -127,6 +128,7 @@ describe SequelRails::Configuration do
           'owner' => (ENV['TEST_OWNER'] || ENV['USER']),
           'username' => (ENV['TEST_OWNER'] || ENV['USER']),
           'database' => 'sequel_rails_test_storage_test',
+          'password' => ENV['TEST_PASSWORD'],
           'host' => '127.0.0.1',
         },
         'remote' => {
