@@ -15,7 +15,7 @@ module SequelRails
       end
 
       def drop
-        return if Sequel::DATABASES.size == 0
+        return if ::Sequel::DATABASES.size == 0
 
         ::Sequel::Model.db.disconnect
         res = _drop
