@@ -1,6 +1,8 @@
 dev
 ===
 
+* Database drop fix for Sequel (>= 5.38.0) (@AnotherRegularDude)
+  [#184](https://github.com/TalentBox/sequel-rails/pull/184)
 * Fix for simplified Spring integration (Janko Marohnić, Adrián Mugnolo)
   [#181](https://github.com/TalentBox/sequel-rails/pull/181)
 * Simplify Spring integration (Janko Marohnić)

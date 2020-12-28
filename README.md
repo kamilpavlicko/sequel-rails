@@ -419,6 +419,7 @@ Improvements have been made by those awesome contributors:
 * Ben Koshy (@BKSpurgeon)
 * Janko Marohnić (@janko)
 * Adrián Mugnolo (@xymbol)
+* Ivan (@AnotherRegularDude)
 
 Credits
 =======
