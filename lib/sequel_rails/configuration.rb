@@ -59,7 +59,7 @@ module SequelRails
         ::Sequel.connect normalized_config['url'], SequelRails.deep_symbolize_keys(normalized_config)
       else
         ::Sequel.connect SequelRails.deep_symbolize_keys(normalized_config)
-      end.tap { after_connect.call if after_connect.respond_to?(:call) }
+      end
     end
 
     private
@@ -75,6 +75,7 @@ module SequelRails
       config['search_path'] = search_path if search_path
       config['servers'] = servers if servers
       config['test'] = test_connect
+      config['after_connect'] = after_connect if after_connect
 
       url = ENV['DATABASE_URL']
       config['url'] ||= url if url
