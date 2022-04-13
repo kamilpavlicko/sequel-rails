@@ -27,6 +27,7 @@ module SequelRails
       self.schema_dump = default_schema_dump
       self.load_database_tasks = true
       self.after_connect = nil
+      self.after_new_connection = nil
       self.skip_connect = nil
       self.test_connect = true
     end
@@ -59,7 +60,7 @@ module SequelRails
         ::Sequel.connect normalized_config['url'], SequelRails.deep_symbolize_keys(normalized_config)
       else
         ::Sequel.connect SequelRails.deep_symbolize_keys(normalized_config)
-      end
+      end.tap { after_connect.call if after_connect.respond_to?(:call) }
     end
 
     private
@@ -75,7 +76,7 @@ module SequelRails
       config['search_path'] = search_path if search_path
       config['servers'] = servers if servers
       config['test'] = test_connect
-      config['after_connect'] = after_connect if after_connect
+      config['after_connect'] = after_new_connection if after_new_connection
 
       url = ENV['DATABASE_URL']
       config['url'] ||= url if url
